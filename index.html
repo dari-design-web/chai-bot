@@ -9,33 +9,62 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html, body {
-    width: 100vw; height: 100vh; overflow: hidden;
+    width: 100%;
+    min-height: 100vh;
     font-family: "Microsoft JhengHei", "微軟正黑體", -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(135deg, #4B9B7B 0%, #06C755 50%, #2A8597 100%);
     color: #333;
-    user-select: none; -webkit-user-select: none;
-    display: flex; align-items: center; justify-content: center;
+    -webkit-user-select: none; user-select: none;
   }
-  /* 永遠呈現手機外框（含手機版） */
+  body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px 12px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  /* 永遠呈現手機外框 */
   #app {
-    width: calc(100vw - 24px);
-    height: calc(100vh - 24px);
-    max-width: 420px;
-    max-height: 880px;
+    width: 100%;
+    max-width: 400px;
+    height: 720px;
     background: #F5F5F5;
     display: flex; flex-direction: column;
     overflow: hidden; position: relative;
     border-radius: 28px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 6px #1A252F;
+    flex-shrink: 0;
   }
   @media (min-width: 600px) {
+    body { padding: 24px; }
     #app {
       width: 400px;
-      height: 90vh;
-      max-height: 860px;
+      height: 820px;
       border-radius: 36px;
       box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 10px #1A252F;
     }
+  }
+  /* 手機框外的版權說明 */
+  .outer-footer {
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.8;
+    margin: 18px auto 6px;
+    max-width: 360px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .outer-footer .brand {
+    color: #FFF3C0;
+    font-weight: 700;
+    font-style: normal;
   }
   .status-bar {
     background: white; padding: 6px 20px 4px;
@@ -221,17 +250,19 @@
       </div>
       <button class="splash-btn" onclick="startChat()">▶ 體驗各項服務情境</button>
       <div class="splash-hint">點擊 Rich Menu 體驗各項服務情境</div>
-      <div class="splash-footer">
-        ※ 本 Demo 為新北市第二行政大樓地下停車場委託經營案<br>
-        創意加值項目（第五章）模擬展示<br>
-        大日開發有限公司 ※
-      </div>
     </div>
     <div class="chat-area" id="chatArea" style="display:none;"></div>
     <div class="sub-menu" id="subMenu" style="display:none;"></div>
   </div>
   <div class="rich-menu" id="richMenu" style="display:none;"></div>
 </div>
+
+<div class="outer-footer">
+  ※ 本 Demo 為新北市第二行政大樓地下停車場委託經營案 ※<br>
+  創意加值項目（第五章）模擬展示<br>
+  ※ <span class="brand">大日開發有限公司</span> ※
+</div>
+
 <script>
 
 const SCENARIOS = {
